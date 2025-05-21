@@ -12,9 +12,9 @@ let latestData = null;
 let token = null;
 
 // === 请替换为你的实际账号信息 ===
-const username = "hjnb"; // IAM用户名
-const password = "H123456789j@"; // IAM密码
-const domain   = "hjnb1314"; // 账号所属主账号名
+const username = ""; // IAM用户名
+const password = ""; // IAM密码
+const domain   = ""; // 账号所属主账号名
 const project  = "cn-north-4";
 const projectId = "cd78f21bdcc148a389db46e1ca4da21e"; // 控制台可查
 const deviceId  = "682dab1284adf27cda5af276_GPS_DHT11_GM";    // 设备ID
