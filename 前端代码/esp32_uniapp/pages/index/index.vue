@@ -1,5 +1,6 @@
 <template>
   <view class="container">
+
     <view class="block" style="margin-bottom:20rpx;">
       <input
         v-model="ngrokDomain"
@@ -21,6 +22,18 @@
     </view>
     <button @click="closeWS" type="warn" style="margin-top:20rpx;">断开WebSocket</button>
     <button @click="reconnectWS" style="margin-top:10rpx;">重新连接</button>
+
+    <!-- 地图放在最下方 -->
+    <view class="map-block">
+      <iframe
+        :src="mapUrl"
+        width="100%"
+        height="520"
+        frameborder="0"
+        style="border-radius:16rpx;"
+      ></iframe>
+    </view>
+
   </view>
 </template>
 
@@ -28,12 +41,19 @@
 export default {
   data() {
     return {
-      ngrokDomain: 'ca77-219-128-230-37.ngrok-free.app', // 默认ngrok域名
+      ngrokDomain: '4da4-219-128-230-66.ngrok-free.app', // 默认ngrok域名
       ws: null,
       env: {},
       wsStatus: '未连接',
       wsUrlCache: ''
     };
+  },
+  computed: {
+    mapUrl() {
+      if (!this.env.latitude || !this.env.longitude) return '';
+      // 高德地图iframe静态展示（lng,lat顺序）
+      return `https://uri.amap.com/marker?position=${this.env.longitude},${this.env.latitude}&name=当前位置`;
+    }
   },
   onLoad() {
     this.connectWS();
@@ -42,9 +62,7 @@ export default {
     this.closeWS();
   },
   methods: {
-    // 动态拼接WebSocket地址并连接
     connectWS() {
-      // 关闭旧连接
       if (this.ws) {
         this.ws.close();
         this.ws = null;
@@ -120,5 +138,13 @@ export default {
 .status {
   font-size: 28rpx;
   color: #888;
+}
+.map-block {
+  width: 100%;
+  max-width: 720px;
+  margin: 20rpx auto 30rpx auto;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #fff;
 }
 </style>
